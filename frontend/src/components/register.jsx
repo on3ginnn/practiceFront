@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { TextField, Button, Typography, Container } from '@mui/material';
 import { userStore } from './../stores/userStore';
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from '../stores/authStore';
 
-export const LoginForm = () => {
+
+export const RegisterForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
-  const auth = useAuthStore((state) => state.login);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,18 +22,17 @@ export const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      auth(formData);
-      await userStore.login(formData); // Используем async/await
+      await userStore.register(formData); // Используем async/await
       navigate('/'); // Перенаправляем после успешной авторизации
     } catch (error) {
-      console.error(error.message); // Отображаем ошибку
+      setError(error.message); // Отображаем ошибку
     }
   };
 
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>
-        Вход
+        Регистрация
       </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
@@ -59,7 +57,7 @@ export const LoginForm = () => {
           required
         />
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          Войти
+          Зарегатсья
         </Button>
       </form>
     </Container>

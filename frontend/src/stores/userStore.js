@@ -2,6 +2,17 @@ import UserAPI from  "../api/userAPI";
 
 
 class UserStore{
+    async register(data){
+        try{
+            const response = await UserAPI.register(data);
+            if (response.status == 200){
+                console.log("register success");
+            }
+            return false;
+        } catch (error){
+            console.log(error);
+        }
+    }
     async login(data){
         try{
             const response = await UserAPI.login(data);
